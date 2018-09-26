@@ -1,0 +1,35 @@
+@startuml
+
+title Mercado - Diagrama de Clases
+
+
+class Producto {
+    - codigoBarras: String
+    - descripcion: String
+    - precioUnitario: double
+}
+class Promocion {
+    -cantidadMinima: double
+    -cantidadMaxima: double
+    -porcentajeDescuento: double
+    + {static} getPromociones()
+    + {static} getPromociones(codigoBarras: String)
+}
+class Factura {
+    - numero: int
+    + facturarProducto (codigoBarras: String, cantidad: double)
+}
+class RenglonFactura {
+    - cantidad: double
+    - precioUnitario: double
+    - precioSinDescuento: double
+    - porcentajeDescuento: double
+    - precioFinal: double
+}
+
+
+Promocion "1" o-down- "many" Producto: aplica a
+Factura "1" *-down- "many" RenglonFactura: compuesta de
+RenglonFactura "1..*" -----left-----> "1" Producto:incluye
+
+@enduml
